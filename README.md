@@ -21,11 +21,60 @@ Save and Document Results Save your project by clicking File → Save Project. T
 Close the Simulation Once done, by going to Simulation → "Close Simulation
 
 Input/Output Signal Diagram:
+<img width="687" height="618" alt="image" src="https://github.com/user-attachments/assets/7925bad0-0b63-45c8-b6ae-60311c460bfd" />
 
 RTL Code:
+`timescale 1ns / 1ps
 
+module seven_segment (
+    input [3:0] data_in,
+    output reg [6:0] segments_out
+    );
+
+    // segments_out maps to {g,f,e,d,c,b,a}
+    always @(*)
+    begin
+        case (data_in)
+            4'd0: segments_out = 7'b1000000; // 0
+            4'd1: segments_out = 7'b1111001; // 1
+            4'd2: segments_out = 7'b0100100; // 2
+            4'd3: segments_out = 7'b0110000; // 3
+            4'd4: segments_out = 7'b0011001; // 4
+            4'd5: segments_out = 7'b0010010; // 5
+            4'd6: segments_out = 7'b0000010; // 6
+            4'd7: segments_out = 7'b1111000; // 7
+            4'd8: segments_out = 7'b0000000; // 8
+            4'd9: segments_out = 7'b0010000; // 9
+            default: segments_out = 7'b1111111; // Off
+        endcase
+    end
 TestBench:
+  reg [3:0] tb_data_in;
+    wire [6:0] tb_segments_out;
+
+    seven_segment dut (
+        .data_in(tb_data_in),
+        .segments_out(tb_segments_out)
+    );
+
+    initial begin
+        tb_data_in = 4'd0;
+
+        // Loop to test all 16 possible inputs
+        repeat (16) begin
+            #10;
+            tb_data_in = tb_data_in + 1;
+        end
+
+        #20;
+        $finish;
+    end
+
+endmodule
 
 Output waveform:
+<img width="1918" height="1197" alt="Screenshot 2025-08-29 113739" src="https://github.com/user-attachments/assets/b96c6083-a806-4d65-adf7-e72b4a5bad42" />
+
 
 Conclusion:
+A BCD to seven-segment display decoder was successfully designed in Verilog HDL. The design was verified using a testbench that provided all possible 4-bit inputs. The simulation was performed in Vivado, and the output waveform confirmed that the correct 7-bit segment pattern was generated for each valid decimal input (0-9) and that the display was turned off for invalid inputs. The design is functionally correct and ready for implementation.
