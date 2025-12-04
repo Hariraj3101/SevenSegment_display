@@ -21,6 +21,7 @@ Save and Document Results Save your project by clicking File → Save Project. T
 Close the Simulation Once done, by going to Simulation → "Close Simulation
 
 Input/Output Signal Diagram:
+
 <img width="687" height="618" alt="image" src="https://github.com/user-attachments/assets/7925bad0-0b63-45c8-b6ae-60311c460bfd" />
 
 RTL Code:
@@ -76,6 +77,7 @@ TestBench:
 endmodule
 ```
 Output waveform:
+
 <img width="1918" height="1197" alt="Screenshot 2025-08-29 113739" src="https://github.com/user-attachments/assets/b96c6083-a806-4d65-adf7-e72b4a5bad42" />
 
 
